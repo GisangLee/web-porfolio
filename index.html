@@ -197,7 +197,7 @@
 							</div>
 							<div class="text pl-3">
 								<span class="date">2024.01 ~ 재직 중</span>
-								<h2>Server & Cloud Developer</h2>
+								<h2>Server & Devops Developer</h2>
 								<span class="position">XionITS</span>
 								<p>프로젝트 리더<br /></p>
 								<b class="text-primary">기술 스택</b>
@@ -205,9 +205,10 @@
 								<b class="text-primary">주요 업무</b>
 								<div>
 									<div> - Xfactor PMA 서비스 개발</div>
-									<div> - 온프레미스 환경의 K8s 클러스터 구축</div>
+									<div> - 온프레미스 환경에 K8s 클러스터 구축 및 관리</div>
 									<div> - Naver Cloud Platform 관리</div>
 									<div> - 사내 개발 CICD 파이프라인 구축</div>
+									<div> - Observability 기반 MLT 시스템 구축</div>
 								</div>
 							</div>
 						</div>
@@ -412,6 +413,23 @@
 								<span class="flaticon-ideas"></span>
 							</div>
 							<div class="text pl-3">
+								<span class="date">2024.05 ~ </span>
+								<div class="d-flex">
+									<h2>Observability 시스템 구축</h2>
+								</div>
+								<span class="position">XionITS</span>
+								<div> <b class="text-dark">기술 스택 : </b>K8s, OpenTelemetry Collector, Jipkin, Jaeger, Prometheus, Grafana, </div>
+								<div> <b class="text-dark">프로젝트 내용: </b>MSA 개발의 메트릭, 로그, 추적 데이터를 중앙집중화 관리하는 시스템을 구축하였다.</div>
+								<div> <b class="text-dark">담당했던 파트: </b></div>
+								<div>각각의 MSA 서비스 별로 OpenTelemetry 통신 모듈 구현 (SDK) </div>
+								<div>K8s 내에 OpenTelemetry 환경 구축</div>
+							</div>
+						</div>
+						<div class="resume-wrap d-flex ftco-animate">
+							<div class="icon d-flex align-items-center justify-content-center">
+								<span class="flaticon-ideas"></span>
+							</div>
+							<div class="text pl-3">
 								<span class="date">2024.01 ~ </span>
 								<div class="d-flex">
 									<h2>XFactor PMA 서비스 개발</h2>
@@ -423,7 +441,7 @@
 								<div>백엔드 API 개발</div>
 								<div>Airflow + Kakfa의 주기적 스케쥴링 데이터 파이프라인 개발</div>
 								<div>폐쇄망 환경에서 K8s 클러스터 구축</div>
-								<div>자동화 빌드 배포 시스템 도입</div>
+								<div>CICD 구축</div>
 							</div>
 						</div>
 						<div class="resume-wrap d-flex ftco-animate">
@@ -617,6 +635,35 @@
 								<div style="margin-bottom: 3%;"></div>
 								<span class="position">개선 방법</span>
 								<div><span>1. /etc/hosts를 변경하면서 반영하는 것이 아니라 Ingress를 SSL/TLS 세팅하여 하용하도록 내부 도메인 인증을 진행했으면 더 좋았을 것같다.</span></div>
+								<div style="margin-bottom: 1%;"></div>
+							</div>
+						</div>
+						<h2 id="problems-section" class="heading">가장 인상깊었던 문제 - 3</h2>
+						<div class="resume-wrap d-flex ftco-animate">
+							<div class="icon d-flex align-items-center justify-content-center">
+								<span class="flaticon-ideas"></span>
+							</div>
+							<div class="text pl-3">
+								<div class="d-flex">
+									<h2>[dial tcp 192.168.3.225:6443: connect: connection refused]</h2>
+								</div>
+								<span class="position">상황</span>
+								<div><span>워커노드들의 메모리 증설을 위해 VM을 shutdown 하고나서 재 실행 후 에러가 발생</span></div>
+								<div style="margin-bottom: 3%;"></div>
+								<span class="position">발생했던 문제</span>
+								<div><span>kubectl 명령어가 실행되지 않고 6443 connection refused 에러가 발생했다.</span></div>
+								<div><span>kube-apiserver, controlller-manager, etcd가 주기적으로 죽었다가 실행됨</span></div>
+								<div style="margin-bottom: 3%;"></div>
+								<span class="position">추적</span>
+								<div><span>1. cri 호환 컨테이너 런타임 CLI로 노드 컨테이너 및 컨테이너 로그 확인</span></div>
+								<div><span>> kube-apiserver와 etcd, kube-scheduler, controller-manager, etcd가 지속적으로 down됨.</span></div>
+								<div><span>> 로그를 확인해 보니 kube-apiserver가 etcd와의 연결이 안되는 것을 확인</span></div>
+								<div><span>>>>> failed to connect to {Addr: "127.0.0.1:2379", ServerName: "127.0.0.1", }</span></div>
+								<div><span>> crictl로 etcd 로그를 보니 포트가 이미 사용 중이라는 내용을 확인</span></div>
+
+								<div style="margin-bottom: 3%;"></div>
+								<span class="position">해결 방법</span>
+								<div><span>포트 바인딩 확인 후 프로세스 종료 및 kubelet 재시작</span></div>
 								<div style="margin-bottom: 1%;"></div>
 							</div>
 						</div>
